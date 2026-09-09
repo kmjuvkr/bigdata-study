@@ -4017,6 +4017,38 @@ $("#resetBtn").addEventListener("click",()=>{
   }
 });
 
+/* ===================== 안드로이드 뒤로가기 처리 ===================== */
+(function backHandler(){
+  let armed = false;
+  function arm(){
+    try{ history.pushState({bda:1}, ""); armed = true; }
+    catch(e){ armed = false; }
+  }
+  arm();
+  window.addEventListener("popstate", function(){
+    if(!armed){ return; }        // 종료 승인됨 → 그대로 통과
+    armed = false;
+    // 1) 열린 시트/오버레이 먼저 닫기
+    const tb = $("#tocBack");
+    if(tb && tb.classList.contains("on")){ closeToc(); arm(); return; }
+    // 2) 문제 풀이 진행 중이면 나갈지 확인
+    if(typeof run !== "undefined" && run){
+      if(confirm("문제 풀이를 나갈까요?\n지금까지 푼 내용은 저장되어 나중에 이어서 풀 수 있어요.")){
+        run = null; setTab("quiz");
+      }
+      arm(); return;
+    }
+    // 3) 홈이 아니면 홈 탭으로
+    if(curTab !== "home"){ setTab("home"); arm(); return; }
+    // 4) 홈에서 뒤로가기 → 종료 확인
+    if(confirm("빅데이터분석 앱을 종료하시겠습니까?")){
+      history.back();           // 재장전하지 않음 → 앱(또는 이전 페이지)으로 빠져나감
+    }else{
+      arm();                    // 취소 → 그대로 머무름
+    }
+  });
+})();
+
 /* ===================== 초기화 ===================== */
 applyTheme();
 updateBadge();
