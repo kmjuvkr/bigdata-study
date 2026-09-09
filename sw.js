@@ -1,6 +1,6 @@
 /* 빅데이터분석 학습 앱 서비스 워커
-   앱 내용을 수정해 재배포할 때는 CACHE 버전 문자열을 올린다 (예: v1 -> v2). */
-const CACHE = "bda-v7";
+   앱 내용을 수정해 재배포할 때는 CACHE 버전 문자열을 올린다 (예: v8 -> v9). */
+const CACHE = "bda-v8";
 const CORE = [
   "./",
   "./index.html",
@@ -10,17 +10,25 @@ const CORE = [
 ];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting())
-  );
+  e.waitUntil((async () => {
+    const c = await caches.open(CACHE);
+    // 최신 내용을 확실히 받도록 HTTP 캐시를 우회해 프리캐시
+    await Promise.all(CORE.map(async (u) => {
+      try {
+        const res = await fetch(u, { cache: "reload" });
+        if (res && res.ok) await c.put(u, res);
+      } catch (err) {}
+    }));
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener("activate", (e) => {
-  e.waitUntil(
-    caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
-      .then(() => self.clients.claim())
-  );
+  e.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    await self.clients.claim();
+  })());
 });
 
 self.addEventListener("fetch", (e) => {
@@ -30,7 +38,7 @@ self.addEventListener("fetch", (e) => {
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
 
-  // 앱 문서: 네트워크 우선, 실패 시 캐시(오프라인)
+  // 앱 문서: 항상 네트워크 우선, 실패 시에만 캐시(오프라인 대비)
   if (req.mode === "navigate" || (sameOrigin && url.pathname.endsWith("index.html"))) {
     e.respondWith(
       fetch(req)
@@ -39,12 +47,12 @@ self.addEventListener("fetch", (e) => {
           caches.open(CACHE).then((c) => c.put("./index.html", copy));
           return res;
         })
-        .catch(() => caches.match("./index.html"))
+        .catch(() => caches.match("./index.html").then((r) => r || caches.match("./")))
     );
     return;
   }
 
-  // 그 외(아이콘, Google Fonts 등): 캐시 우선 + 백그라운드 채우기
+  // 그 외(아이콘, Google Fonts 등): 캐시 우선 + 백그라운드 갱신
   e.respondWith(
     caches.match(req).then((cached) => {
       const fetching = fetch(req)

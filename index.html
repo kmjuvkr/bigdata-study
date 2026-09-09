@@ -624,6 +624,7 @@ table.cmp td strong{color:var(--text)}
 <div class="toast" id="toast"></div>
 
 <script>
+window.APP_VER = "8";
 /* ================= 과목 · 단원 구조 ================= */
 const SUBJECTS = [
   {id:1, t:"빅데이터 분석 기획", chapters:[
@@ -3462,7 +3463,7 @@ function renderHome(){
   v.appendChild(list);
 
   v.appendChild(el("div","foot-note",
-    "요약자료(이기적 핵심포인트)를 기반으로 개념 원리·모델 비교·계산 포인트를 확장했습니다.<br>기기 저장(localStorage)이라 이 브라우저에서만 기록이 유지됩니다."));
+    "개념 원리·모델 비교·계산 포인트까지 확장한 심화 학습 앱.<br>학습 기록은 이 기기·브라우저에만 저장됩니다(서버 전송 없음).<br><span style='opacity:.6'>버전 " + (window.APP_VER||"–") + "</span>"));
 }
 let openSubj = 1;
 
@@ -4056,10 +4057,23 @@ renderHome();
 })();
 </script>
 <script>
-/* PWA 서비스 워커 등록 */
+/* PWA 서비스 워커 등록 + 자동 업데이트 */
 if ("serviceWorker" in navigator) {
+  var __reloading = false;
+  navigator.serviceWorker.addEventListener("controllerchange", function () {
+    if (__reloading) return;
+    __reloading = true;
+    location.reload();
+  });
   window.addEventListener("load", function () {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("sw.js").then(function (reg) {
+      var check = function () { try { reg.update(); } catch (e) {} };
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") check();
+      });
+      setInterval(check, 60000);
+      check();
+    }).catch(function () {});
   });
 }
 </script>
