@@ -190,17 +190,17 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 }
 .hero h1{font-family:var(--serif);font-size:1.32rem;font-weight:700;letter-spacing:-.015em;margin-bottom:5px;text-wrap:balance}
 .hero .subtitle{font-size:.8rem;opacity:.82;margin-bottom:20px;font-variant-numeric:tabular-nums}
-.hero .ringrow{display:flex;align-items:center;gap:20px}
-.ring{width:94px;height:94px;flex:none;position:relative}
+.hero .ringrow{display:flex;align-items:center;gap:15px}
+.ring{width:84px;height:84px;flex:none;position:relative}
 .ring svg{transform:rotate(-90deg)}
 .ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-.ring .num b{font-family:var(--mono);font-weight:600;font-size:1.18rem;line-height:1}
-.ring .num i{font-style:normal;font-size:.55rem;letter-spacing:.16em;opacity:.7;text-transform:uppercase}
+.ring .num b{font-family:var(--mono);font-weight:600;font-size:1.08rem;line-height:1}
+.ring .num i{font-style:normal;font-size:.52rem;letter-spacing:.14em;opacity:.7;text-transform:uppercase}
 .hero .stats{flex:1;display:flex;min-width:0}
-.hero .stats div{flex:1;text-align:center;padding:0 2px}
+.hero .stats div{flex:1;text-align:center;padding:0 2px;min-width:0}
 .hero .stats div + div{border-left:1px solid rgba(255,255,255,.22)}
-.hero .stats b{display:block;font-family:var(--mono);font-weight:600;font-size:1.16rem;line-height:1.25;font-variant-numeric:tabular-nums}
-.hero .stats span{font-size:.66rem;opacity:.72;font-weight:600;letter-spacing:.02em}
+.hero .stats b{display:block;font-family:var(--mono);font-weight:600;font-size:1.02rem;line-height:1.2;white-space:nowrap;font-variant-numeric:tabular-nums}
+.hero .stats span{display:block;font-size:.64rem;opacity:.72;font-weight:600;letter-spacing:.01em;margin-top:2px}
 .hero .resume{
   margin-top:20px;width:100%;background:#fff;border:none;
   color:#2f3fb0;font-weight:700;font-size:.92rem;padding:13px;border-radius:13px;
@@ -209,6 +209,19 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 }
 .hero .resume svg{color:#2f3fb0}
 .hero .resume:active{transform:scale(.985);box-shadow:0 4px 10px -3px rgba(20,24,70,.3)}
+
+/* 홈 · 풀던 문제 이어하기 */
+.home-resume{
+  margin-top:12px;width:100%;display:flex;align-items:center;gap:12px;text-align:left;
+  padding:13px 14px;border-radius:var(--r-m);
+  background:var(--accent-soft);border:1px solid var(--accent-line);box-shadow:var(--shadow-sm);
+}
+.home-resume:active{transform:scale(.99)}
+.home-resume .hr-ic{width:34px;height:34px;flex:none;border-radius:9px;display:grid;place-items:center;background:var(--accent);color:#fff}
+.home-resume .hr-m{flex:1;min-width:0}
+.home-resume .hr-m b{display:block;font-size:.9rem;font-weight:700;color:var(--accent)}
+.home-resume .hr-m span{font-size:.74rem;color:var(--text-mid)}
+.home-resume > svg{flex:none;color:var(--accent)}
 
 /* 학습 모드 칩 */
 .modes{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -404,6 +417,24 @@ table.cmp td strong{color:var(--text)}
 .scope-btn .sc-n{font-family:var(--mono);font-size:.82rem;color:var(--text-mid);font-weight:500}
 .scope-btn.dis{opacity:.45;pointer-events:none}
 
+.resume-card{
+  margin:16px 0 4px;padding:15px 16px;border-radius:var(--r-m);
+  background:var(--accent-soft);border:1px solid var(--accent-line);box-shadow:var(--shadow-sm);
+}
+.resume-card .rc-t{font-weight:700;font-size:.92rem;color:var(--accent);display:flex;align-items:center;gap:7px}
+.resume-card .rc-t::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;animation:rcpulse 1.6s ease-in-out infinite}
+@keyframes rcpulse{0%,100%{opacity:1}50%{opacity:.3}}
+.resume-card .rc-d{font-size:.78rem;color:var(--text-mid);margin:5px 0 12px}
+.resume-card .rc-row{display:flex;gap:9px}
+.resume-card .rc-go{
+  flex:1;padding:11px;border-radius:11px;background:var(--accent);color:#fff;font-weight:700;font-size:.86rem;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.resume-card .rc-go:active{background:var(--accent-press)}
+.resume-card .rc-fresh{
+  flex:none;padding:11px 16px;border-radius:11px;background:var(--surface);border:1px solid var(--line-strong);
+  color:var(--text-mid);font-weight:600;font-size:.86rem;
+}
 .q-start{
   margin-top:20px;width:100%;padding:15px;border-radius:14px;background:var(--accent);color:#fff;
   font-weight:700;font-size:.98rem;box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;gap:9px;
@@ -2340,7 +2371,7 @@ const TOTAL_C = CONCEPTS.length, TOTAL_Q = QUESTIONS.length;
 
 /* ---- 상태 ---- */
 const KEY = "bda.v2";
-const DEF = ()=>({studied:{}, bookmarks:{}, last:null, mode:"all", theme:null,
+const DEF = ()=>({studied:{}, bookmarks:{}, last:null, mode:"all", theme:null, session:null,
   quiz:{correct:0, total:0, perSubj:{1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0}}, wrong:{}}});
 let S;
 try{ S = Object.assign(DEF(), JSON.parse(localStorage.getItem(KEY)||"{}")); }
@@ -2426,7 +2457,7 @@ function renderHome(){
     <h1>빅데이터분석기사 심화 학습</h1>
     <p class="subtitle">4과목 · 개념 ${TOTAL_C} · 문제 ${TOTAL_Q} — 원리 · 비교 · 계산까지</p>
     <div class="ringrow">
-      <div class="ring">${ring(pct,94,9,'#fff')}<span class="num"><b>${pct}%</b><i>달성</i></span></div>
+      <div class="ring">${ring(pct,84,8,'#fff')}<span class="num"><b>${pct}%</b><i>달성</i></span></div>
       <div class="stats">
         <div><b>${sc} / ${TOTAL_C}</b><span>학습 개념</span></div>
         <div><b>${S.quiz.total}</b><span>푼 문제</span></div>
@@ -2437,6 +2468,14 @@ function renderHome(){
   resume.addEventListener("click",()=>{ openConcept(S.last || CONCEPTS[0].id); });
   hero.appendChild(resume);
   v.appendChild(hero);
+
+  // 풀던 문제 이어하기 (있을 때만)
+  if(hasSession()){
+    const rs=el("button","home-resume");
+    rs.innerHTML=`<span class="hr-ic">${IC.redo}</span><span class="hr-m"><b>풀던 문제 이어하기</b><span>${esc(S.session.label||"문제 풀이")} · ${S.session.i}/${S.session.ids.length}문항</span></span>${IC.arrowR}`;
+    rs.addEventListener("click",()=>{ setTab("quiz"); });
+    v.appendChild(rs);
+  }
 
   // 학습 모드
   v.appendChild(el("div","section-label","학습 범위"));
@@ -2652,11 +2691,44 @@ $("#tocBack").addEventListener("click",e=>{ if(e.target.id==="tocBack") closeToc
 /* ===================== 탭3 · 문제 풀이 ===================== */
 let quizScope = {type:"all", count:10};
 
+function scopeLabel(scope){
+  if(scope.type==="all") return "전체 랜덤";
+  if(scope.type==="subj") return `${scope.id}과목 · ${SUBJ_BY_ID[scope.id].t}`;
+  if(scope.type==="chapter") return `${CH_SUBJ[scope.id]}과목 · ${CH_TITLE[scope.id]||scope.id}`;
+  if(scope.type==="wrong") return "오답 다시 풀기";
+  return "문제 풀이";
+}
+function hasSession(){ return S.session && Array.isArray(S.session.ids) && S.session.i < S.session.ids.length; }
+function resumeQuiz(){
+  const s=S.session;
+  const list=(s.ids||[]).map(id=>QUESTIONS.find(q=>q.id===id)).filter(Boolean);
+  if(!s || list.length!==s.ids.length || s.i>=list.length){ S.session=null; save(); toast("이어서 풀 문제가 없습니다"); renderQuizHub(); return; }
+  run={ list, i:s.i, correct:s.correct||0, answered:false, sessionWrong:(s.wrong||[]).slice() };
+  setTab("quiz");
+  renderRun();
+}
+
 function renderQuizHub(){
   const v=$("#view-quiz"); v.innerHTML="";
   const setup=el("div","quiz-setup");
   setup.appendChild(el("h2",null,"문제 풀이"));
   setup.appendChild(el("p","sub", `총 ${TOTAL_Q}문항 · 4지선다와 O/X · 풀이 해설 포함`));
+
+  // 풀던 세션 이어하기
+  if(hasSession()){
+    const s=S.session;
+    const card=el("div","resume-card");
+    card.innerHTML=`<div class="rc-t">풀던 문제가 있어요</div>
+      <div class="rc-d">${esc(s.label||"문제 풀이")} · <b>${s.i} / ${s.ids.length}</b>문항까지 풀었어요</div>`;
+    const rrow=el("div","rc-row");
+    const cont=el("button","rc-go", `${IC.play} 이어서 풀기`);
+    cont.addEventListener("click", resumeQuiz);
+    const fresh=el("button","rc-fresh", "처음부터");
+    fresh.addEventListener("click",()=>{ S.session=null; save(); toast("새로 시작합니다"); renderQuizHub(); });
+    rrow.append(cont,fresh);
+    card.appendChild(rrow);
+    setup.appendChild(card);
+  }
 
   // 통계
   const g=el("div","q-statgrid");
@@ -2723,6 +2795,8 @@ function startQuiz(scope){
   if(scope.type!=="wrong") pool = pool.slice(0, Math.min(cnt, pool.length));
   if(!pool.length){ toast("출제할 문제가 없습니다"); return; }
   run={ list:pool, i:0, correct:0, answered:false, sessionWrong:[] };
+  S.session={ ids: pool.map(q=>q.id), i:0, correct:0, wrong:[], label: scopeLabel(scope), at: Date.now() };
+  save();
   setTab("quiz");
   renderRun();
 }
@@ -2734,7 +2808,7 @@ function renderRun(){
 
   const top=el("div","q-topbar");
   const close=el("button","qclose",IC.x);
-  close.addEventListener("click",()=>{ if(confirm("문제 풀이를 종료할까요? 지금까지 기록은 저장됩니다.")){ run=null; renderQuizHub(); } });
+  close.addEventListener("click",()=>{ if(confirm("문제 풀이를 종료할까요? 누적 통계는 저장되고, 이 세션은 끝납니다.")){ run=null; S.session=null; save(); renderQuizHub(); } });
   const prog=el("div","q-prog",`<i style="width:${run.i/run.list.length*100}%"></i>`);
   top.append(close,prog,el("span","q-count",`${run.i+1} / ${run.list.length}`));
   box.appendChild(top);
@@ -2787,6 +2861,10 @@ function pick(sel, btn, opts){
   } else {
     S.quiz.wrong[q.id]=1; run.sessionWrong.push(q.id);
   }
+  // 세션 진행 상태 저장 (이어하기용)
+  const last = run.i===run.list.length-1;
+  if(last){ S.session=null; }
+  else if(S.session){ S.session.i=run.i+1; S.session.correct=run.correct; S.session.wrong=run.sessionWrong.slice(); }
   save(); updateBadge();
 
   const ex=run._els.ex;
@@ -2799,7 +2877,6 @@ function pick(sel, btn, opts){
     ex.appendChild(a);
   }
 
-  const last = run.i===run.list.length-1;
   const nb=el("button","q-next", last? `${IC.check} 결과 보기` : `다음 문제 ${IC.arrowR}`);
   nb.addEventListener("click",()=> last? finishRun() : nextQ());
   run._els.nextWrap.appendChild(nb);
@@ -2808,6 +2885,7 @@ function pick(sel, btn, opts){
 function nextQ(){ run.i++; run.answered=false; renderRun(); window.scrollTo(0,0); }
 
 function finishRun(){
+  S.session=null; save();
   const v=$("#view-quiz"); v.innerHTML="";
   const n=run.list.length, c=run.correct, pct=Math.round(c/n*100);
   const wrong=n-c;
@@ -2827,8 +2905,10 @@ function finishRun(){
     const w=el("button","primary", `${IC.redo} 이번 오답 ${run.sessionWrong.length}개 다시 풀기`);
     const ids=run.sessionWrong.slice();
     w.addEventListener("click",()=>{
-      const pool=QUESTIONS.filter(q=>ids.includes(q.id));
-      run={list:shuffle(pool), i:0, correct:0, answered:false, sessionWrong:[]};
+      const pool=shuffle(QUESTIONS.filter(q=>ids.includes(q.id)));
+      run={list:pool, i:0, correct:0, answered:false, sessionWrong:[]};
+      S.session={ ids: pool.map(q=>q.id), i:0, correct:0, wrong:[], label:"오답 다시 풀기", at:Date.now() };
+      save();
       renderRun(); window.scrollTo(0,0);
     });
     acts.appendChild(w);

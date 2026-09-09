@@ -1,6 +1,6 @@
 /* 빅데이터분석 학습 앱 서비스 워커
    앱 내용을 수정해 재배포할 때는 CACHE 버전 문자열을 올린다 (예: v1 -> v2). */
-const CACHE = "bda-v2";
+const CACHE = "bda-v3";
 const CORE = [
   "./",
   "./index.html",
