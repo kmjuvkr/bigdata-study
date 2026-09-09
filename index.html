@@ -514,6 +514,47 @@ table.cmp td strong{color:var(--text)}
 .q-result .ractions .primary{background:var(--accent);color:#fff;box-shadow:var(--shadow-md)}
 .q-result .ractions .sec{background:var(--surface);border:1px solid var(--line-strong);color:var(--text-mid)}
 
+/* ===================== 탭4 · 용어 검색 ===================== */
+.term-wrap{padding-top:calc(env(safe-area-inset-top) + 8px)}
+.term-head{margin:6px 0 12px}
+.term-head h2{font-family:var(--serif);font-size:1.3rem;font-weight:700}
+.term-head p{font-size:.8rem;color:var(--text-dim);margin-top:3px}
+.term-searchbar{
+  position:sticky;top:0;z-index:15;padding:10px 0 12px;
+  background:linear-gradient(var(--bg) 78%, transparent);
+}
+.term-input-box{display:flex;align-items:center;gap:9px;padding:11px 14px;border-radius:13px;
+  background:var(--surface);border:1.5px solid var(--line-strong);box-shadow:var(--shadow-sm)}
+.term-input-box:focus-within{border-color:var(--accent)}
+.term-input-box svg{width:18px;height:18px;color:var(--text-dim);flex:none}
+.term-input-box input{flex:1;border:none;background:none;outline:none;font-size:.95rem;color:var(--text);min-width:0}
+.term-input-box input::placeholder{color:var(--text-dim)}
+.term-input-box .clr{width:22px;height:22px;border-radius:50%;display:none;place-items:center;background:var(--surface-sunk);color:var(--text-mid);flex:none}
+.term-input-box .clr svg{width:12px;height:12px}
+.term-input-box.has .clr{display:grid}
+
+.term-cats{display:flex;gap:7px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none}
+.term-cats::-webkit-scrollbar{display:none}
+.term-cat{flex:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line-strong);background:var(--surface);
+  font-size:.78rem;font-weight:600;color:var(--text-mid);white-space:nowrap}
+.term-cat.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.term-count{font-size:.72rem;color:var(--text-dim);font-weight:600;margin:12px 2px 8px;letter-spacing:.02em}
+.term-list{display:flex;flex-direction:column;gap:8px}
+.term-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);box-shadow:var(--shadow-sm);overflow:hidden}
+.term-item > button.term-top{width:100%;display:flex;align-items:baseline;gap:8px;padding:13px 15px;text-align:left}
+.term-item .tt-name{font-weight:700;font-size:.95rem;color:var(--text);flex:none}
+.term-item .tt-eng{font-family:var(--mono);font-size:.72rem;color:var(--text-dim);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.term-item .tt-cat{font-size:.62rem;font-weight:700;letter-spacing:.03em;padding:2px 7px;border-radius:6px;background:var(--accent-soft);color:var(--accent);flex:none;align-self:center}
+.term-item .tt-cat.concept{background:var(--warn-soft);color:var(--gold)}
+.term-item .term-body{display:none;padding:0 15px 14px;border-top:1px solid var(--line)}
+.term-item.open .term-body{display:block;animation:fade .18s ease}
+.term-item .term-body p{font-size:.88rem;color:var(--text-mid);line-height:1.62;padding-top:11px}
+.term-item .term-body p mark{background:var(--accent-soft);color:var(--accent);border-radius:3px;padding:0 2px;font-weight:600}
+.term-item .term-more{margin-top:10px;font-size:.8rem;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:5px}
+.term-item .term-more svg{width:14px;height:14px}
+.term-item .tt-name mark{background:var(--accent-soft);color:var(--accent);padding:0 1px;border-radius:3px}
+
 .empty{text-align:center;padding:50px 20px;color:var(--text-dim)}
 .empty svg{width:40px;height:40px;margin-bottom:12px;opacity:.5}
 .empty p{font-size:.88rem}
@@ -551,20 +592,27 @@ table.cmp td strong{color:var(--text)}
   <!-- ===== 탭3: 문제 ===== -->
   <main class="view" id="view-quiz"></main>
 
+  <!-- ===== 탭4: 용어 ===== -->
+  <main class="view" id="view-terms"></main>
+
   <nav class="tabbar">
     <div class="inner">
       <button class="tab on" data-tab="home">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></svg>
-        학습 선택
+        학습
       </button>
       <button class="tab" data-tab="learn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 0 1 6 4h13v15H6a2 2 0 0 0-2 2z"/><path d="M4 19.5A2 2 0 0 1 6 18h13"/><path d="M9 8h6M9 11h6"/></svg>
-        개념 학습
+        개념
       </button>
       <button class="tab" data-tab="quiz">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1.2-1.5 2.2v.5"/><circle cx="12" cy="17.5" r="1"/><rect x="3.5" y="3.5" width="17" height="17" rx="4"/></svg>
-        문제 풀이
+        문제
         <span class="badge" id="quizBadge" hidden>0</span>
+      </button>
+      <button class="tab" data-tab="terms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        용어
       </button>
     </div>
   </nav>
@@ -2357,6 +2405,357 @@ const QUESTIONS = [
 ];
 </script>
 <script>
+/* ================= 용어 사전 =================
+ [용어, 영문/약어, 정의, 관련 개념 id(''가능), 분류] */
+const GLOSSARY = [
+/* --- 기획 --- */
+["DIKW 피라미드","DIKW","데이터→정보→지식→지혜로 갈수록 맥락과 인간의 판단이 더해진다는 계층 모델. 정보는 '무엇', 지식은 '어떻게', 지혜는 '왜'에 답한다.","c101","기획"],
+["암묵지","Tacit knowledge","학습·경험으로 개인에게 체화됐지만 언어로 표현하기 어려운 지식. 전수·공유가 어렵다.","c101","기획"],
+["형식지","Explicit knowledge","문서·매뉴얼·수식처럼 형태를 갖춰 전달·저장·재사용이 가능한 지식.","c101","기획"],
+["SECI 모델","SECI","지식 창조의 4가지 전환: 공통화(암묵→암묵)·표출화(암묵→형식)·연결화(형식→형식)·내면화(형식→암묵).","c101","기획"],
+["표출화","Externalization","암묵지를 개념·매뉴얼·모델로 명시화해 형식지로 바꾸는 SECI 단계(외부화).","c101","기획"],
+["정형 데이터","Structured","사전에 정의된 고정 스키마를 갖는 행·열 구조 데이터(RDB 테이블, CSV). 바로 연산 가능.","c102","기획"],
+["반정형 데이터","Semi-structured","스키마 정보를 태그·구분자 형태로 데이터 안에 함께 갖지만 고정 스키마는 없는 데이터(JSON, XML, HTML, 로그).","c102","기획"],
+["비정형 데이터","Unstructured","구조 정보가 없는 데이터(자연어 텍스트, 이미지, 음성, 영상). 전체 데이터의 약 80%.","c102","기획"],
+["명목척도","Nominal","분류만 가능하고 순서가 없는 척도(성별, 혈액형). 최빈값·빈도만 의미.","c102","기획"],
+["순서척도","Ordinal","순서는 있으나 간격이 불균등한 척도(학점, 만족도 5점). 중앙값·순위상관 가능.","c102","기획"],
+["구간척도","Interval","간격이 일정하나 절대 영점이 없는 척도(섭씨온도, 연도). 덧셈·뺄셈·평균 가능, 비율은 무의미.","c102","기획"],
+["비율척도","Ratio","간격이 일정하고 절대 영점이 있는 척도(키, 무게, 소득). 곱셈·나눗셈·비율까지 가능.","c102","기획"],
+["3V","Volume·Variety·Velocity","빅데이터의 기본 특성 — 규모·다양성·속도. Doug Laney(2001)가 제시.","c103","기획"],
+["Veracity","정확성·신뢰성","불확실성·노이즈 속에서 데이터를 신뢰할 수 있는가. IBM이 강조한 빅데이터 특성(5V).","c103","기획"],
+["Value","가치","분석으로 도출되는 비즈니스 가치. 가장 중요하나 사전 산정이 어려움(5V).","c103","기획"],
+["데이터 웨어하우스","DW","의사결정 지원을 위해 여러 원천 데이터를 주제별로 통합·축적한 DB. 주제지향성·통합성·시계열성·비휘발성.","c105","기획"],
+["데이터 마트","Data Mart","특정 부서·주제 영역에 맞춰 구성한 소규모 DW. 구축이 빠르나 전사 정합성 관리 부담.","c105","기획"],
+["ODS","Operational Data Store","여러 운영 시스템의 데이터를 통합·정제해 최신 상태로 보관하는 영역. DW의 전 단계.","c105","기획"],
+["ETL","Extract-Transform-Load","원천에서 추출→변환·정제→저장소에 적재. 최근 클라우드에선 ELT(적재 후 변환)도 사용.","c105","기획"],
+["데이터 레이크","Data Lake","정형·비정형 원천 데이터를 원본 그대로 저장하고 읽을 때 구조를 부여(schema-on-read).","c105","기획"],
+["비휘발성","Non-volatile","DW의 특성 중 하나. 한 번 적재된 데이터는 갱신·삭제 없이 조회만 한다.","c105","기획"],
+["데이터 거버넌스","Data Governance","전사 차원에서 데이터 정책·표준·조직·프로세스를 수립·운영하는 관리 체계. 구성요소 = 원칙·조직·프로세스.","c115","기획"],
+["메타데이터","Metadata","다른 데이터를 설명하는 데이터(테이블·칼럼 정의, 데이터 계보, 갱신 주기).","c115","기획"],
+["마스터데이터","Master Data / MDM","업무의 기준이 되며 자주 바뀌지 않는 핵심 데이터(고객·상품·조직 코드). MDM으로 유일성 유지.","c115","기획"],
+["하둡","Hadoop","저비용 서버를 수평 확장해 대용량 데이터를 분산 저장·처리하는 오픈소스 프레임워크.","c107","기획"],
+["HDFS","Hadoop Distributed File System","하둡의 분산 파일 저장. NameNode(메타데이터) + DataNode(블록). 기본 블록 128MB, 복제 3.","c107","기획"],
+["MapReduce","MapReduce","구글이 발표한 분산 병렬 연산 프로그래밍 모델. Map(분할·처리)→Shuffle&Sort→Reduce(집계).","c109","기획"],
+["Shuffle","Shuffle & Sort","MapReduce에서 동일 key를 같은 리듀서로 모으고 정렬하는 단계. 네트워크 병목 구간.","c109","기획"],
+["YARN","Yet Another Resource Negotiator","하둡 2.0의 클러스터 자원 관리·작업 스케줄링(ResourceManager + NodeManager).","c107","기획"],
+["Hive","Apache Hive","HDFS 데이터를 SQL 유사 언어(HiveQL)로 질의하는 도구.","c107","기획"],
+["HBase","Apache HBase","HDFS 기반 칼럼 지향 NoSQL. 실시간 랜덤 읽기/쓰기 지원.","c107","기획"],
+["Sqoop","Apache Sqoop","관계형 DB ↔ 하둡 간 대량 정형 데이터를 전송하는 도구(import/export).","c119","기획"],
+["Flume","Apache Flume","대용량 로그(비정형) 데이터를 수집·집계·이동시키는 분산 서비스.","c119","기획"],
+["Kafka","Apache Kafka","분산 pub/sub 메시지 큐. 대용량 실시간 이벤트 스트림을 중계·버퍼링.","c119","기획"],
+["Spark","Apache Spark","인메모리 기반 분산 처리 엔진. 반복 연산에서 MapReduce보다 수십 배 빠름.","c107","기획"],
+["스크래피","Scrapy","파이썬 기반 웹 크롤링·구조화 데이터 추출 프레임워크.","c119","기획"],
+["NoSQL","Not Only SQL","관계형 모델을 단순화한 비관계형 DB. 스키마가 유연하고 수평 확장에 유리. Key-Value·Column·Document·Graph.","c108","기획"],
+["컬럼 지향 DB","Column-oriented DB","행이 아닌 칼럼(칼럼 패밀리) 단위로 저장·처리. 집계·범위 스캔에 유리(HBase, Cassandra).","c108","기획"],
+["도큐먼트 DB","Document DB","JSON/BSON 등 문서 단위로 저장. 문서 내부 중첩 구조 기반 질의 가능(MongoDB).","c108","기획"],
+["CAP 정리","CAP theorem","분산 시스템은 일관성(C)·가용성(A)·분단내성(P) 중 최대 2가지만 동시 보장. 분단 시 C 또는 A를 선택.","c108","기획"],
+["BASE","BASE","NoSQL이 지향하는 성질 — 기본적 가용성, 유연한 상태, 최종 일관성(ACID의 대안).","c108","기획"],
+["크롤링","Crawling","웹 문서·SNS를 자동 탐색·수집해 검색 색인에 포함시키는 기술. 수집 단계.","c106","기획"],
+["KDD","Knowledge Discovery in Databases","데이터마이닝 중심 5단계 방법론: 데이터셋 선택→전처리→변환→데이터 마이닝→해석·평가.","c113","기획"],
+["CRISP-DM","CRISP-DM","가장 널리 쓰이는 6단계 방법론: 업무 이해→데이터 이해→데이터 준비→모델링→평가→전개. 순환 구조, '전개' 단계 보유.","c113","기획"],
+["SEMMA","Sample-Explore-Modify-Model-Assess","SAS의 5단계 방법론. 도구 중심이며 '업무 이해' 단계가 없음.","c113","기획"],
+["전개","Deployment","개발된 모델을 실제 업무·시스템에 적용하고 지속 관리 방안을 마련하는 단계. CRISP-DM의 마지막 단계.","c414","기획"],
+["분석 성숙도","Analytics Maturity","조직의 분석 역량 단계: 도입→활용→확산→최적화(CMMI 기반).","c116","기획"],
+["분석 준비도","Analytics Readiness","분석 업무·인력/조직·기법·데이터·문화·IT 인프라 6개 영역으로 조직의 준비 수준을 진단.","c116","기획"],
+["하향식 접근","Top-down","문제가 명확히 정의된 상태에서 가설을 세우고 데이터로 검증하는 연역적 접근.","c112","기획"],
+["상향식 접근","Bottom-up","문제 정의가 어려울 때 데이터를 먼저 관찰해 패턴에서 문제를 재정의하는 귀납적 접근(프로토타이핑, 디자인 씽킹).","c112","기획"],
+["개인정보","Personal Information","살아 있는 개인에 관한 정보로서 그 자체로 또는 다른 정보와 쉽게 결합해 개인을 알아볼 수 있는 정보.","c110","기획"],
+["가명정보","Pseudonymized data","추가 정보 없이는 개인을 알아볼 수 없게 처리한 정보. 통계작성·과학적 연구·공익적 기록보존 목적엔 동의 없이 활용 가능.","c110","기획"],
+["익명정보","Anonymized data","시간·비용·기술을 합리적으로 고려해도 재식별할 수 없는 정보. 개인정보보호법 적용 대상이 아님.","c110","기획"],
+["데이터 3법","","2020년 개정된 개인정보보호법·정보통신망법·신용정보법. 가명정보 개념을 도입.","c110","기획"],
+["가명처리","Pseudonymization","식별 요소를 다른 값(가명)으로 대체하는 비식별 기법(홍길동→회원A).","c110","기획"],
+["총계처리","Aggregation","개별 값을 합계·평균 등 통계값으로 대체하는 비식별 기법.","c110","기획"],
+["데이터 범주화","Generalization","값을 구간·범주로 대체하는 비식별 기법(28세→20대).","c110","기획"],
+["데이터 마스킹","Masking","값의 일부를 * 등으로 가리는 비식별 기법(홍○○, 010-****-1234).","c110","기획"],
+["k-익명성","k-anonymity","동일한 준식별자 조합을 갖는 레코드가 최소 k개 존재하도록 해 개인 특정 확률을 1/k 이하로 낮춤. 연결 공격 방어.","c111","기획"],
+["l-다양성","l-diversity","각 동질집합의 민감정보가 서로 다른 값을 최소 l개 갖도록 함. 동질성·배경지식 공격 방어.","c111","기획"],
+["t-근접성","t-closeness","동질집합의 민감정보 분포가 전체 분포와의 차이 t 이하가 되게 함. 쏠림·유사성 공격 방어.","c111","기획"],
+["식별자","Identifier","단독으로 개인을 특정할 수 있는 정보(이름, 주민번호). 비식별 시 원칙적으로 삭제.","c111","기획"],
+["준식별자","Quasi-identifier","단독으론 불충분하나 조합하면 개인을 특정할 수 있는 정보(생년월일+성별+우편번호).","c111","기획"],
+["람다 아키텍처","Lambda Architecture","배치 레이어(정확·느림)와 스피드 레이어(근사·빠름)를 병행하는 실시간 처리 구조. 코드가 이원화됨.","c122","기획"],
+["카파 아키텍처","Kappa Architecture","스트림 처리 레이어 하나로 통합하고 재처리는 로그 재생으로 하는 구조. 람다보다 단순.","c122","기획"],
+["알고리즈미스트","Algorithmist","알고리즘의 부작용·피해를 진단·중재하는 전문가. 빅데이터 '데이터 오용' 위기의 통제 방안.","c123","기획"],
+["스트리밍 데이터","Streaming data","빠르고 연속적이며 대용량으로 다양한 곳에서 발생하는 시간 민감 데이터(IoT 센서, 웹 로그).","c120","기획"],
+["빅데이터 분석 3요소","","빅데이터를 가치로 바꾸는 세 요소 — 자원(데이터)·기술·인력(도메인 지식 포함).","c104","기획"],
+["분석 조직 유형","","집중형(별도 전담 조직)·기능형(현업 부서가 직접)·분산형(전문 인력을 현업에 배치).","c121","기획"],
+
+/* --- 전처리 --- */
+["데이터 정제","Data Cleaning","결측치·이상치·노이즈·오류를 처리해 분석 가능한 형태로 다듬는 작업.","c227","전처리"],
+["결측치","Missing data","관측 대상 변수에 값이 기록되지 않은 것. 삭제하거나 대치(imputation)로 처리.","c201","전처리"],
+["MCAR","완전 무작위 결측","결측이 다른 어떤 변수와도 무관하게 순수 우연으로 발생. 삭제해도 편향이 없음.","c201","전처리"],
+["MAR","무작위 결측","결측이 '관측된 다른 변수'로 설명되나 결측값 자체와는 무관. 회귀·다중대치로 처리 가능.","c201","전처리"],
+["MNAR","비무작위 결측","결측이 '결측값 자체' 또는 미관측 변수와 관련. 가장 처리가 어렵고 단순 대치 시 큰 편향.","c201","전처리"],
+["평균 대치법","Mean imputation","결측치를 해당 변수의 평균(또는 중앙값)으로 채움. 분산을 과소추정하고 상관을 왜곡.","c202","전처리"],
+["회귀 대치법","Regression imputation","다른 변수로 회귀식을 만들어 예측값으로 결측치를 채움. 변수 간 관계를 인위적으로 강화.","c202","전처리"],
+["다중 대치법","Multiple Imputation","서로 다른 대치값으로 m개의 완성 데이터셋을 만들고 각각 분석 후 결합. 대치-분석-결합 3단계.","c202","전처리"],
+["이상치","Outlier","데이터의 전반적 패턴에서 크게 벗어난 값. 측정 오류일 수도, 희귀 현상일 수도 있어 무조건 삭제는 금물.","c203","전처리"],
+["IQR 방법","Interquartile Range","Q1−1.5·IQR 미만 또는 Q3+1.5·IQR 초과를 이상치로 판정(상자수염그림).","c203","전처리"],
+["Z-Score","Z-Score","표준화 점수 |z| > 3(또는 2.5)이면 이상치로 판정. 정규분포를 가정.","c203","전처리"],
+["Isolation Forest","고립 의사나무","랜덤 분할 트리에서 더 적은 분할로 고립되는(경로 짧은) 점을 이상치로 판정.","c203","전처리"],
+["LOF","Local Outlier Factor","주변 이웃 대비 국소 밀도의 비율로 이상 정도를 점수화하는 밀도 기반 기법.","c203","전처리"],
+["노이즈","Noise","측정 과정에서 섞인 무작위 오차·변동. 구간화·회귀 평활·군집화로 완화. 이상치(체계적으로 튄 값)와 구분.","c227","전처리"],
+["정규화","Normalization / Min-Max","(x−min)/(max−min)으로 값을 0~1 범위로 변환. 이상치에 민감.","c209","전처리"],
+["표준화","Standardization / Z-score","(x−μ)/σ로 평균 0·표준편차 1로 변환. 거리 기반·경사하강 기반 모델에 필수, 이상치에 덜 민감.","c209","전처리"],
+["로그 변환","Log transformation","log(x)로 오른쪽으로 심하게 치우친(양의 왜도) 분포를 대칭에 가깝게 만듦.","c209","전처리"],
+["Box-Cox 변환","Box-Cox","λ에 따라 로그~거듭제곱을 연속적으로 적용해 정규성에 가장 가까운 형태를 찾는 변환.","c209","전처리"],
+["원-핫 인코딩","One-Hot Encoding","범주형 변수를 각 범주에 대한 0/1 더미변수로 변환.","c209","전처리"],
+["파생변수","Derived variable","특정 조건이나 함수로 새로 만들어 의미를 부여한 변수(생년월일→나이, 키·몸무게→BMI).","c208","전처리"],
+["요약변수","Summary variable","원 데이터를 분석 목적에 맞게 집계·요약한 변수(고객별 최근 3개월 총구매액). 재활용성이 높음.","c208","전처리"],
+["전진 선택법","Forward selection","변수가 없는 상태에서 기여도가 큰 변수부터 하나씩 추가. 한 번 들어온 변수는 제거하지 않음.","c204","전처리"],
+["후진 소거법","Backward elimination","모든 변수를 넣은 상태에서 기여도가 낮은 변수부터 하나씩 제거. 한 번 빠진 변수는 다시 넣지 않음.","c204","전처리"],
+["단계적 선택법","Stepwise selection","전진 선택으로 변수를 넣되 추가할 때마다 기존 변수의 유의성을 재검토해 유의하지 않으면 제거. 가장 널리 사용.","c204","전처리"],
+["차원의 저주","Curse of dimensionality","차원이 늘어날수록 같은 밀도를 유지하는 데 필요한 데이터가 기하급수적으로 증가해 성능이 저하되는 현상.","c205","전처리"],
+["차원 축소","Dimensionality reduction","변수의 수를 줄여 복잡도↓·과적합↓·시각화 용이. 변수 선택(일부 고름) vs 변수 추출(조합해 새 변수).","c205","전처리"],
+["주성분분석","PCA","데이터의 분산을 가장 잘 설명하는 직교 축(주성분)을 찾아 투영하는 비지도 차원축소. 공분산 행렬의 고유값 분해로 계산.","c206","전처리"],
+["고유값","Eigenvalue","PCA에서 각 주성분 축이 설명하는 분산의 양. 큰 순서로 상위 k개를 선택.","c206","전처리"],
+["스크리 도표","Scree plot","주성분 수에 따른 고유값을 그린 그래프. 기울기가 완만해지는 '팔꿈치'로 주성분 개수를 결정.","c206","전처리"],
+["특이값 분해","SVD","임의의 행렬 A를 UΣVᵀ로 분해. 상위 특이값만 남겨 원 행렬을 저차원으로 근사(추천시스템, LSA).","c207","전처리"],
+["요인분석","Factor Analysis","관측 변수들 뒤에 숨은 공통 잠재요인을 추정. 독립/종속 구분이 없음. 탐색적(EFA)·확인적(CFA).","c207","전처리"],
+["NMF","음수 미포함 행렬분해","모든 원소가 음이 아닌 행렬 V를 W·H의 곱으로 분해. 부분 기반 표현(토픽)에 유리, 근사해를 구함.","c207","전처리"],
+["클래스 불균형","Class imbalance","목표 범주 간 데이터 양 차이가 큰 상태. 정확도만 높고 소수 클래스를 못 맞힘 → F1·재현율·PR-AUC로 평가.","c210","전처리"],
+["언더샘플링","Undersampling","다수 클래스에서 일부만 골라 수를 줄여 균형을 맞춤. 정보 손실이 발생.","c210","전처리"],
+["오버샘플링","Oversampling","소수 클래스를 복제해 수를 늘림. 동일 데이터 반복으로 과적합 위험.","c210","전처리"],
+["SMOTE","Synthetic Minority Over-sampling","소수 클래스 샘플과 최근접 이웃 사이를 보간해 '합성' 샘플을 생성. 단순 복제가 아님.","c210","전처리"],
+
+/* --- 탐색·기술통계 --- */
+["EDA","탐색적 데이터 분석","본격 분석 전에 그래프와 요약통계로 데이터를 직관적으로 통찰하는 과정. 주제 = 저항성·잔차·재표현·현시성.","c211","탐색"],
+["저항성","Resistance","일부 이상치·오류에 크게 흔들리지 않는 통계(중앙값·IQR)를 선호하는 EDA의 성질.","c211","탐색"],
+["산술평균","Arithmetic mean","모든 값을 더해 개수로 나눈 일반적 평균. 모든 값을 반영하나 이상치에 민감.","c212","탐색"],
+["기하평균","Geometric mean","n개 값의 곱의 n제곱근. 비율·성장률의 평균에 사용.","c212","탐색"],
+["조화평균","Harmonic mean","역수들의 산술평균의 역수. 속도·평균 단가 계산에 사용.","c212","탐색"],
+["중앙값","Median","크기순으로 나열했을 때 가운데 값. 이상치에 강함(저항성).","c212","탐색"],
+["분산","Variance","편차 제곱의 평균. 평균을 중심으로 데이터가 퍼진 정도.","c212","탐색"],
+["표준편차","Standard deviation","분산의 제곱근. 원 데이터와 같은 단위로 산포를 나타냄.","c212","탐색"],
+["표본분산","Sample variance","Σ(xᵢ−x̄)²/(n−1). 분모가 n−1인 이유는 자유도 손실을 보정해 불편추정량으로 만들기 위함.","c212","탐색"],
+["변동계수","CV","표준편차/평균. 단위·평균이 다른 집단의 산포를 비교할 때 사용.","c212","탐색"],
+["사분위범위","IQR","Q3−Q1. 자료의 가운데 50%가 퍼진 정도로, 이상치에 강한 산포 측도.","c212","탐색"],
+["왜도","Skewness","분포의 비대칭 정도. >0이면 오른쪽 꼬리(평균>중앙값), <0이면 왼쪽 꼬리, 0이면 대칭.","c213","탐색"],
+["첨도","Kurtosis","분포의 봉우리 뾰족함과 꼬리 두께. 정규분포는 3, >3이면 급첨(꼬리 두꺼움), <3이면 완첨.","c213","탐색"],
+["피어슨 상관계수","Pearson r","두 연속형 변수의 '선형' 관계 강도·방향. −1~+1. 선형성·등분산성·정규성·독립표본을 가정.","c214","탐색"],
+["스피어만 상관계수","Spearman rho","값 대신 순위로 계산하는 상관계수. 단조 관계를 측정하며 비선형·이상치에 강함.","c214","탐색"],
+["켄달 타우","Kendall tau","부합쌍/비부합쌍의 비율로 계산하는 순위상관. 표본이 작을 때 안정적.","c214","탐색"],
+["공분산","Covariance","E[(X−μₓ)(Y−μᵧ)]. 부호는 관계 방향을 주지만 크기는 단위에 좌우돼 강도 비교 불가.","c215","탐색"],
+["상관계수","Correlation coefficient","공분산을 두 표준편차의 곱으로 나눈 값. −1~+1로 표준화되어 서로 다른 변수쌍을 비교 가능.","c215","탐색"],
+["상자수염그림","Box Plot","최솟값·Q1·Q2·Q3·최댓값으로 그린 그림. 이상치는 파악되나 분산 등 퍼짐 정도는 알기 어려움.","c212","탐색"],
+["다차원척도법","MDS","개체들을 원래보다 낮은 차원 공간에 배치해 개체 간 거리·구조를 파악하는 기법.","c225","탐색"],
+["정준상관분석","Canonical Correlation","종속변수군과 독립변수군 간 상관을 최대화하는 각 군의 선형조합을 찾는 분석.","c225","탐색"],
+["판별분석","Discriminant Analysis","종속변수가 비계량적일 때 집단 간 차이를 판별하고 특정 집단에 속할 가능성을 예측.","c225","탐색"],
+["데이터 마이닝","Data Mining","대용량 데이터에서 통계적 규칙·패턴을 자동으로 추출하는 과정.","c226","탐색"],
+["텍스트 마이닝","Text Mining","자연어 처리로 비정형 텍스트에서 주제·핵심어·의미를 추출(문서 내 주제 파악).","c226","탐색"],
+["오피니언 마이닝","Opinion Mining","텍스트 마이닝의 하위 분야. 주관적 의견의 감정·태도(긍/부정)를 수치화(감성 분석).","c226","탐색"],
+["웹 마이닝","Web Mining","웹 로그·구조·콘텐츠를 분석(웹 사용·구조·내용 마이닝).","c226","탐색"],
+["자연어 처리","NLP","인간의 언어를 컴퓨터가 이해·생성하도록 하는 AI 분야. 토큰화·형태소분석·구문분석·임베딩.","c226","탐색"],
+
+/* --- 확률·추론통계 --- */
+["조건부확률","Conditional probability","P(A|B) = P(A∩B)/P(B). 사건 B가 일어났을 때 A가 일어날 확률.","c217","추론"],
+["베이즈 정리","Bayes' theorem","사전확률 P(A)를 관측 B로 갱신해 사후확률 P(A|B)를 구하는 정리. 스팸 필터·의료 진단의 기반.","c217","추론"],
+["사전확률","Prior","데이터를 보기 전의 믿음 P(A).","c217","추론"],
+["우도","Likelihood","원인 A에서 관측 결과 B가 나올 확률 P(B|A).","c217","추론"],
+["사후확률","Posterior","데이터를 관측한 후 갱신된 믿음 P(A|B).","c217","추론"],
+["베르누이분포","Bernoulli","성공확률 p인 1회 시행의 성공 여부(0 또는 1). E=p, Var=pq.","c218","추론"],
+["이항분포","Binomial B(n,p)","독립 베르누이 n회 중 성공 횟수의 분포. E=np, Var=np(1−p).","c218","추론"],
+["포아송분포","Poisson","단위 시간·공간당 희귀 사건의 발생 횟수. 평균=분산=λ. 이항분포에서 n 크고 p 작을 때 근사.","c218","추론"],
+["기하분포","Geometric","첫 성공이 나올 때까지의 시행 횟수. E=1/p.","c218","추론"],
+["음이항분포","Negative Binomial","k번째 성공이 나올 때까지의 시행 횟수 분포. E=k/p.","c218","추론"],
+["초기하분포","Hypergeometric","비복원 추출 n개 중 관심 대상의 개수. 모집단이 매우 크면 이항분포로 근사.","c218","추론"],
+["정규분포","Normal N(μ,σ²)","종모양·평균 대칭. 자연·사회 현상의 기본 분포. 표준화하면 표준정규분포 N(0,1).","c219","추론"],
+["지수분포","Exponential","포아송 과정에서 한 사건이 발생할 때까지의 대기 시간. 무기억성.","c219","추론"],
+["감마분포","Gamma","포아송 과정에서 k개 사건이 발생할 때까지의 대기 시간. 지수분포는 k=1인 특수형.","c219","추론"],
+["카이제곱분포","Chi-square","독립 표준정규 k개를 각각 제곱해 합한 분포. 분산 추론·적합도·독립성 검정에 사용.","c219","추론"],
+["t분포","Student's t","모분산을 모를 때 정규 모집단의 평균을 추론. 정규분포보다 꼬리가 두껍고, 자유도가 커지면 정규분포에 근접.","c219","추론"],
+["F분포","F distribution","두 카이제곱을 각 자유도로 나눈 비. 분산비 검정·분산분석(ANOVA)에 사용.","c219","추론"],
+["자유도","Degrees of freedom","자료 중 자유롭게 선택될 수 있는 값의 수. 표본분산은 n−1, 회귀는 n−k−1.","c221","추론"],
+["표준오차","Standard Error","표본평균의 표준편차 = σ/√n. 표본이 클수록 작아져 추정이 정밀해짐.","c220","추론"],
+["중심극한정리","CLT","모집단 분포와 무관하게 표본 크기가 충분히 크면 표본평균의 분포가 정규분포에 근접한다는 정리.","c220","추론"],
+["점추정","Point estimation","모수를 하나의 값으로 추정하는 것. 좋은 추정량의 성질 = 불편성·효율성·일치성·충분성.","c221","추론"],
+["불편성","Unbiasedness","추정량의 기댓값이 모수와 같은 성질. 편향 = E(θ̂)−θ = 0.","c221","추론"],
+["최대우도추정","MLE","관측된 표본이 나올 우도(likelihood)를 최대로 만드는 모수값을 택하는 추정법.","c221","추론"],
+["구간추정","Interval estimation","점추정에 오차를 더해 모수가 포함되는 구간을 신뢰수준과 함께 제시.","c222","추론"],
+["신뢰구간","Confidence Interval","σ를 알면 X̄±Z(α/2)·σ/√n, 모르면 t 사용. 신뢰수준을 높이면 구간이 넓어짐.","c222","추론"],
+["신뢰수준 95%","","같은 방식으로 표본추출·구간계산을 반복하면 약 95%가 참 모수를 포함한다는 의미. 특정 구간의 포함 확률이 아님.","c222","추론"],
+["귀무가설","H₀","기존 통념이나 '차이 없음(=)'을 나타내는 가설. 검정에서 기각 또는 기각 실패로 판정('채택'이라 하지 않음).","c223","추론"],
+["대립가설","H₁","연구자가 입증하려는 새 주장(≠, <, >).","c223","추론"],
+["유의수준","Significance level α","참인 귀무가설을 기각하는 오류(제1종 오류)를 범할 확률의 허용 최대치.","c223","추론"],
+["제1종 오류","Type I error","참인 귀무가설을 기각하는 오류(없는 효과를 있다고 함). 확률 = α.","c223","추론"],
+["제2종 오류","Type II error","거짓인 귀무가설을 기각하지 못하는 오류(있는 효과를 놓침). 확률 = β.","c223","추론"],
+["검정력","Power (1−β)","거짓인 귀무가설을 올바르게 기각할 확률. 표본크기·효과크기·α가 커지면 증가.","c223","추론"],
+["p-value","유의확률","귀무가설이 참이라는 가정하에 관측된 것만큼 극단적인 결과가 나올 확률. p < α이면 귀무가설 기각.","c223","추론"],
+["양측검정","Two-tailed test","대립가설이 '≠'일 때. 기각역이 양쪽 꼬리에 α/2씩 분포.","c224","추론"],
+["단측검정","One-tailed test","대립가설이 '<' 또는 '>'일 때. 기각역이 한쪽 꼬리에 α 전부. 같은 α면 검정력이 더 큼.","c224","추론"],
+["대응표본 t검정","Paired t-test","같은 대상을 전후로 측정한 두 값의 차이(D)에 대한 t검정.","c224","추론"],
+["독립표본 t검정","Two-sample t-test","서로 독립인 두 집단의 평균 차이를 검정. 등분산 가정 시 합동분산 사용.","c224","추론"],
+["분산분석","ANOVA","독립변수가 범주형(3집단 이상)이고 종속변수가 연속형일 때 평균 차이를 F검정으로 비교.","c331","추론"],
+["단순무작위추출","SRS","모든 표본이 뽑힐 확률이 동일하게 무작위로 추출하는 가장 기본적인 확률 표본추출.","c216","추론"],
+["계통추출","Systematic sampling","모집단을 정렬한 뒤 추출 간격 k를 정해 매 k번째를 뽑는 방법. 시작점만 무작위.","c216","추론"],
+["층화추출","Stratified sampling","모집단을 겹치지 않는 동질적 층으로 나눈 뒤 각 층에서 무작위 추출. 층 내 동질·층 간 이질. 정밀도↑.","c216","추론"],
+["군집추출","Cluster sampling","모집단을 이질적 군집으로 나눈 뒤 일부 군집을 통째로 조사. 비용↓ 대신 오차↑.","c216","추론"],
+["표본 크기 결정","Sample size","원하는 오차 한계 E와 신뢰수준에서 역산. E를 절반으로 줄이려면 표본은 4배 필요(n ∝ 1/E²).","c228","추론"],
+
+/* --- 모델링 --- */
+["지도학습","Supervised learning","정답(레이블)이 있는 데이터로 입력→출력 매핑 함수를 학습. 분류와 회귀.","c301","모델"],
+["비지도학습","Unsupervised learning","정답 없이 데이터의 숨은 구조·패턴을 발견. 군집·연관분석·PCA·오토인코더.","c301","모델"],
+["준지도학습","Semi-supervised learning","소량의 레이블 데이터와 대량의 비레이블 데이터를 함께 사용해 학습(셀프 트레이닝, GAN).","c301","모델"],
+["강화학습","Reinforcement learning","에이전트가 환경과 상호작용하며 누적 보상을 최대화하는 정책을 학습(Q-러닝, 정책경사).","c301","모델"],
+["과대적합","Overfitting","학습 데이터에는 정확하나 새 데이터 예측을 못하는 상태. 모델이 너무 복잡해 분산이 큼.","c302","모델"],
+["과소적합","Underfitting","모델이 너무 단순해 학습·검증 데이터 모두에서 성능이 낮은 상태. 편향이 큼.","c302","모델"],
+["일반화","Generalization","학습에 쓰이지 않은 새 데이터에서도 성능을 유지하는 능력.","c302","모델"],
+["편향-분산 트레이드오프","Bias-Variance","기대오차 = 편향² + 분산 + 잡음. 모델 복잡도를 올리면 편향↓·분산↑로 상충.","c308","모델"],
+["최소제곱법","OLS","잔차 제곱합(SSE)을 최소화하는 회귀계수를 구하는 방법.","c304","모델"],
+["다중공선성","Multicollinearity","독립변수끼리 강하게 상관되어 회귀계수 추정이 불안정해지는 현상. VIF > 10이면 의심.","c304","모델"],
+["VIF","분산팽창계수","다중공선성 진단 지표. 한 독립변수를 나머지로 회귀했을 때의 R²로 계산. 10 초과 시 문제.","c304","모델"],
+["더빈-왓슨","Durbin-Watson","회귀 잔차의 자기상관(독립성)을 진단하는 통계량. 2 근처면 양호, 0에 가까우면 양의 자기상관.","c407","모델"],
+["결정계수","R²","1 − SSE/SST = SSR/SST. 종속변수 총변동 중 회귀식이 설명하는 비율(0~1). 변수 추가 시 항상 증가.","c331","모델"],
+["수정 결정계수","Adjusted R²","독립변수 수에 페널티를 부여한 R². 변수 개수가 다른 모형 비교에 사용.","c403","모델"],
+["릿지 회귀","Ridge / L2","손실함수에 계수 제곱합(L2) 페널티를 더해 계수를 전체적으로 0 근처로 축소. 다중공선성 완화.","c305","모델"],
+["라쏘 회귀","Lasso / L1","손실함수에 계수 절대값 합(L1) 페널티를 더해 일부 계수를 정확히 0으로 만듦(변수 선택 효과).","c305","모델"],
+["엘라스틱넷","Elastic Net","L1과 L2 페널티를 절충. 상관 높은 변수 그룹을 함께 선택.","c305","모델"],
+["로지스틱 회귀","Logistic Regression","종속변수가 범주형(이항)일 때 시그모이드로 사건 확률을 예측하는 분류 모델. 계수는 MLE로 추정.","c306","모델"],
+["시그모이드","Sigmoid","입력을 (0,1)로 압축하는 S자 함수. 로지스틱 회귀의 확률 출력, 신경망 활성함수.","c314","모델"],
+["오즈","Odds","p/(1−p) = 성공확률/실패확률.","c306","모델"],
+["오즈비","Odds Ratio","e^β. 로지스틱 회귀에서 설명변수가 1 증가할 때 오즈가 몇 배가 되는가.","c306","모델"],
+["의사결정나무","Decision Tree","if-then 규칙을 나무 구조로 조합해 분류·예측. 자식마디의 순수도가 높아지도록 분리.","c307","모델"],
+["엔트로피","Entropy","−Σpᵢlog₂pᵢ. 마디의 불순도. 한 클래스만 있으면 0, 고르게 섞이면 최대.","c307","모델"],
+["지니 지수","Gini Index","1 − Σpᵢ². CART가 사용하는 불순도 척도. 감소량이 최대인 분리를 선택.","c307","모델"],
+["정보 획득","Information Gain","부모 불순도 − 자식들의 가중평균 불순도. 이 값이 최대인 분리를 선택.","c307","모델"],
+["가지치기","Pruning","오분류 위험이 크거나 불필요한 마디를 잘라 의사결정나무의 과적합을 방지.","c307","모델"],
+["CART","Classification And Regression Tree","지니 지수(분류)·분산 감소(회귀)를 사용하며 항상 이진 분리를 하는 의사결정나무 알고리즘.","c307","모델"],
+["CHAID","Chi-squared Automatic Interaction Detection","카이제곱 통계량으로 분리하고 다지 분리가 가능한 의사결정나무 알고리즘.","c307","모델"],
+["앙상블","Ensemble","여러 개의 약한 학습기를 결합해 하나의 강한 학습기를 만드는 기법. 단일 모델보다 안정적.","c308","모델"],
+["배깅","Bagging","같은 알고리즘을 서로 다른 부트스트랩 표본으로 병렬 학습한 뒤 평균·투표로 집계. 분산을 감소.","c309","모델"],
+["부트스트래핑","Bootstrapping","원본에서 복원추출로 같은 크기의 표본을 여러 개 생성. 한 표본에 평균 약 63.2%가 포함됨.","c309","모델"],
+["OOB 오차","Out-Of-Bag error","각 부트스트랩 표본에 뽑히지 않은 약 36.8%로 검증하는 방식. 별도 검증셋 없이 성능 추정.","c309","모델"],
+["랜덤 포레스트","Random Forest","배깅 + 노드마다 무작위 변수 부분집합만 후보로 사용. 두 가지 무작위성으로 분산을 크게 줄임.","c309","모델"],
+["부스팅","Boosting","약한 학습기를 순차 학습하며 앞 모델이 틀린 샘플에 가중치를 키움. 편향을 감소. 병렬화가 어려움.","c308","모델"],
+["AdaBoost","Adaptive Boosting","오분류된 샘플의 가중치를 높여 다음 약분류기가 집중하게 하는 부스팅.","c310","모델"],
+["그래디언트 부스팅","GBM","이전 모델의 잔차(음의 그래디언트)를 새 트리가 학습하며 순차적으로 오차를 줄이는 부스팅.","c310","모델"],
+["XGBoost","Extreme Gradient Boosting","GBM에 정규화·2차 근사·결측 자동처리·병렬 분할탐색을 더해 빠르고 과적합에 강한 부스팅.","c310","모델"],
+["스태킹","Stacking","여러 기반 모델의 예측값을 새 입력 특징으로 삼아 그 위에 메타 모델이 최종 예측을 학습.","c308","모델"],
+["보팅","Voting","서로 다른 종류의 알고리즘 예측을 하드 보팅(다수결)·소프트 보팅(확률 평균)으로 결합.","c308","모델"],
+["SVM","Support Vector Machine","두 클래스를 나누는 초평면 중 마진을 최대화하는 것을 찾는 분류 모델.","c319","모델"],
+["마진","Margin","결정 경계와 가장 가까운 데이터(서포트 벡터) 사이의 거리. SVM은 이를 최대화.","c319","모델"],
+["서포트 벡터","Support Vector","마진 경계 위에 놓인 소수의 결정적 데이터 점. 이 점들만으로 초평면이 정해짐.","c319","모델"],
+["커널 트릭","Kernel Trick","데이터를 고차원으로 실제 매핑하지 않고 커널함수로 내적만 계산해 비선형 분리를 수행.","c319","모델"],
+["소프트 마진","Soft Margin","슬랙 변수로 약간의 오분류를 허용하는 SVM. 규제 상수 C로 조절(C↑ → 오분류에 엄격).","c319","모델"],
+["KNN","K-Nearest Neighbors","새 점에서 가장 가까운 k개 이웃의 다수결·평균으로 예측. 학습 단계가 없는 게으른 학습, 스케일에 민감.","c320","모델"],
+["나이브 베이즈","Naive Bayes","베이즈 정리 + 모든 특성이 조건부 독립이라는 가정. 학습 데이터가 적어도 잘 작동, 문서 분류에 강함.","c320","모델"],
+["연관 분석","Association Analysis","'A를 산 사람은 B도 산다' 같은 동시 발생 규칙을 찾는 비지도 기법(장바구니 분석).","c321","모델"],
+["지지도","Support","P(A∩B). 전체 거래 중 A와 B가 함께 나타난 비율. 규칙의 빈도.","c321","모델"],
+["신뢰도","Confidence","P(B|A) = P(A∩B)/P(A). A를 산 거래 중 B도 산 비율. 규칙의 신뢰성.","c321","모델"],
+["향상도","Lift","P(A∩B)/(P(A)·P(B)). 1이면 독립(연관 없음), >1이면 양의 연관, <1이면 음의 연관.","c321","모델"],
+["Apriori","Apriori algorithm","'빈발항목집합의 부분집합도 빈발하다'는 성질로 최소 지지도 미만 항목집합을 조기 가지치기.","c321","모델"],
+["K-평균 군집","K-means","군집 수 k를 지정하고 할당·중심 갱신을 반복해 군집 내 제곱합(WCSS)을 최소화. 초기값·이상치에 민감.","c322","모델"],
+["WCSS","Within-Cluster Sum of Squares","각 점과 소속 군집 중심 간 거리 제곱의 총합. K-means의 목적함수.","c322","모델"],
+["엘보우 기법","Elbow Method","군집 수에 따른 WCSS를 그려 감소가 완만해지는 '팔꿈치' 지점을 적정 k로 선택.","c322","모델"],
+["계층적 군집","Hierarchical Clustering","군집 수를 미리 정하지 않고 가까운 것끼리 순차 병합(또는 분할)해 덴드로그램을 만듦.","c323","모델"],
+["덴드로그램","Dendrogram","계층적 군집의 병합 과정을 나무 형태로 표현한 그림. 원하는 높이에서 잘라 군집 수를 결정.","c323","모델"],
+["Ward 연결법","Ward's method","병합 시 군집 내 제곱합(분산) 증가가 최소가 되도록 하는 계층적 군집 연결법.","c323","모델"],
+["최단 연결법","Single Linkage","두 군집에서 가장 가까운 점 쌍의 거리로 군집 간 거리를 정의. 사슬 효과가 나타남.","c323","모델"],
+["DBSCAN","Density-Based Spatial Clustering","반경 ε와 MinPts로 밀도가 높은 영역을 군집으로 확장. 군집 수 자동 결정, 임의 모양 탐지, 이상치 분리.","c324","모델"],
+["유클리드 거리","Euclidean distance","√Σ(xᵢ−yᵢ)². 두 점의 직선 거리(피타고라스).","c325","모델"],
+["맨해튼 거리","Manhattan distance","Σ|xᵢ−yᵢ|. 격자를 따라간 거리(택시 거리).","c325","모델"],
+["민코프스키 거리","Minkowski distance","(Σ|xᵢ−yᵢ|^m)^(1/m). m=1이면 맨해튼, m=2이면 유클리드.","c325","모델"],
+["마할라노비스 거리","Mahalanobis distance","공분산 역행렬을 사용해 변수 간 상관·척도를 반영한 거리. 척도 불변.","c325","모델"],
+["코사인 유사도","Cosine similarity","두 벡터가 이루는 각의 코사인. 크기를 무시하고 방향만 비교. 문서·추천에 사용.","c325","모델"],
+["자카드 계수","Jaccard","|교집합|/|합집합|. 집합·이진 데이터의 유사도.","c325","모델"],
+["정상성","Stationarity","시계열의 평균·분산이 시점과 무관하게 일정하고 자기공분산이 시차에만 의존하는 성질.","c326","모델"],
+["차분","Differencing","시계열의 추세를 제거해 정상 시계열로 만드는 변환. ARIMA의 'I'.","c326","모델"],
+["백색잡음","White Noise","평균 0, 일정한 분산, 자기상관이 없는 시계열의 불규칙 성분.","c326","모델"],
+["이동평균법","Moving Average method","최근 n기간의 단순 평균으로 예측. n이 클수록 평활은 커지고 반응은 느려짐.","c327","모델"],
+["지수평활법","Exponential Smoothing","최근 데이터에 더 큰 가중치를 지수적으로 부여. 모든 과거 데이터를 사용.","c327","모델"],
+["AR 모형","Autoregressive","현재값을 과거 p개 값들의 선형결합으로 설명하는 자기회귀 모형.","c327","모델"],
+["MA 모형","Moving Average model","현재값을 과거 q개 '오차'들의 선형결합으로 설명하는 모형.","c327","모델"],
+["ARIMA","Autoregressive Integrated Moving Average","d번 차분해 정상화한 뒤 ARMA를 적용하는 비정상 시계열 모형. ARIMA(p,d,q).","c327","모델"],
+["비모수 검정","Nonparametric test","모집단 분포(정규성 등)를 가정하지 않고 순위·부호로 검정. 정규성 의심·소표본·서열척도에 사용.","c328","모델"],
+["만-휘트니 검정","Mann-Whitney U","독립 2집단의 분포 차이를 순위로 검정하는 비모수 방법(독립표본 t검정에 대응).","c328","모델"],
+["크루스칼-왈리스 검정","Kruskal-Wallis","독립 3집단 이상의 차이를 순위로 검정하는 비모수 방법(일원분산분석에 대응).","c328","모델"],
+["윌콕슨 부호순위 검정","Wilcoxon signed-rank","대응 2집단의 차이를 순위로 검정하는 비모수 방법(대응표본 t검정에 대응).","c328","모델"],
+
+/* --- 딥러닝 --- */
+["인공신경망","ANN","뉴런(노드)들이 가중치로 연결된 층 구조. 각 뉴런은 입력의 가중합에 활성함수를 적용해 출력.","c311","딥러닝"],
+["퍼셉트론","Perceptron","가장 단순한 인공뉴런. 단층 퍼셉트론은 선형 분리만 가능해 XOR 문제를 못 풂.","c311","딥러닝"],
+["다층 퍼셉트론","MLP","은닉층과 비선형 활성함수를 가진 신경망. XOR 등 비선형 문제를 해결.","c311","딥러닝"],
+["심층신경망","DNN","입력층과 출력층 사이에 은닉층이 2개 이상인 인공신경망.","c311","딥러닝"],
+["가중치","Weight","뉴런 간 연결의 세기(연결계수). 학습을 통해 조정되는 파라미터.","c311","딥러닝"],
+["편향","Bias","뉴런의 가중합에 더해지는 상수항. 활성화 임계값을 조정.","c311","딥러닝"],
+["순전파","Forward propagation","입력층에서 출력층 방향으로 가중합·활성함수 계산을 반복해 예측을 산출하는 과정.","c311","딥러닝"],
+["역전파","Backpropagation","출력층의 오차를 연쇄법칙으로 입력층 방향으로 전파하며 각 가중치의 기울기를 효율적으로 계산.","c312","딥러닝"],
+["연쇄법칙","Chain Rule","합성함수의 미분을 각 단계 미분의 곱으로 계산하는 규칙. 역전파의 핵심.","c312","딥러닝"],
+["경사하강법","Gradient Descent","손실함수의 기울기 반대 방향으로 학습률만큼 파라미터를 이동시켜 최소점을 찾는 알고리즘.","c312","딥러닝"],
+["학습률","Learning Rate","한 번의 갱신에서 이동하는 보폭. 너무 크면 발산·진동, 너무 작으면 수렴이 느림.","c312","딥러닝"],
+["확률적 경사하강법","SGD","한 번에 1개(또는 미니배치) 샘플로 파라미터를 갱신. 빠르고 지역최소 탈출에 유리하나 진동이 큼.","c312","딥러닝"],
+["미니배치","Mini-batch","전체 데이터를 작은 묶음(32·64·128)으로 나눈 단위. 실무 표준.","c312","딥러닝"],
+["에폭","Epoch","전체 학습 데이터를 한 번 모두 학습한 단위. 1 epoch = (전체 수 / 배치 크기) 이터레이션.","c409","딥러닝"],
+["이터레이션","Iteration","미니배치 1개를 학습해 파라미터를 1회 갱신하는 단위.","c409","딥러닝"],
+["모멘텀","Momentum","이전 이동 방향(속도)을 관성으로 누적해 진동을 줄이고 가속하는 옵티마이저.","c313","딥러닝"],
+["AdaGrad","Adaptive Gradient","매개변수별로 적응적으로 학습률을 조정. 많이 갱신된 파라미터의 학습률을 줄이나 학습률이 계속 작아지는 단점.","c313","딥러닝"],
+["Adam","Adaptive Moment Estimation","모멘텀(1차 모멘트)과 RMSProp(2차 모멘트)을 결합한 옵티마이저. 실무 기본값.","c313","딥러닝"],
+["활성함수","Activation Function","뉴런의 가중합을 비선형으로 변환하는 함수. 계단·시그모이드·tanh·ReLU·소프트맥스.","c314","딥러닝"],
+["ReLU","Rectified Linear Unit","0 이하는 0, 0 초과는 입력을 그대로 출력. 양수 구간 기울기 1로 기울기 소실을 완화. 은닉층 기본.","c314","딥러닝"],
+["소프트맥스","Softmax","출력을 합이 1인 확률 벡터로 변환. 다중 분류 출력층에 사용.","c314","딥러닝"],
+["기울기 소실","Vanishing Gradient","역전파 시 작은 미분값이 여러 층에 곱해져 입력층 근처 기울기가 0에 수렴해 학습이 정체되는 현상.","c314","딥러닝"],
+["가중치 감소","Weight Decay","손실함수에 L2(또는 L1) 페널티를 더해 큰 가중치를 억제하는 규제.","c315","딥러닝"],
+["드롭아웃","Dropout","학습 시 은닉 뉴런을 확률 p로 임의 제거해 특정 뉴런 의존을 막음. 추론 시엔 전체 뉴런 사용. 앙상블 효과.","c315","딥러닝"],
+["배치 정규화","Batch Normalization","각 층의 입력을 미니배치 단위로 정규화해 학습을 안정·가속. 약한 규제 효과.","c315","딥러닝"],
+["조기 종료","Early Stopping","검증 손실이 더 이상 줄지 않으면 학습을 중단해 과적합을 방지.","c315","딥러닝"],
+["CNN","Convolutional Neural Network","필터로 이미지의 지역적 특징을 추출하는 신경망. 합성곱·풀링으로 특징 추출, 완전연결층으로 분류.","c316","딥러닝"],
+["필터","Filter / Kernel","이미지를 훑으며 에지·질감 등 특징을 검출하는 작은 가중치 행렬. 학습 대상.","c316","딥러닝"],
+["스트라이드","Stride","합성곱 필터가 이동하는 간격. 크면 출력 크기가 작아짐.","c316","딥러닝"],
+["패딩","Padding","입력 가장자리를 특정값(0)으로 둘러 출력 크기 축소를 방지. 출력 크기 = (I+2P−F)/S + 1.","c316","딥러닝"],
+["풀링","Pooling","특징지도를 최댓값·평균으로 다운샘플링. 학습 파라미터가 없고 위치 변화에 강건함을 부여.","c316","딥러닝"],
+["RNN","Recurrent Neural Network","은닉 상태를 다음 시점으로 전달해 순서를 기억하는 신경망. 긴 시퀀스에서 장기 의존성 학습이 어려움.","c317","딥러닝"],
+["LSTM","Long Short-Term Memory","입력·망각·출력 게이트와 셀 상태로 오래된 정보를 선택적으로 유지·삭제해 RNN의 장기 의존성 문제를 보완.","c317","딥러닝"],
+["GRU","Gated Recurrent Unit","업데이트·리셋 2개 게이트로 LSTM을 간소화. 파라미터가 적고 학습이 빠름.","c317","딥러닝"],
+["오토인코더","Autoencoder","인코더(고차원→저차원 잠재벡터)와 디코더(복원)로 입력=출력이 되도록 학습. 차원 축소·이상 탐지.","c318","딥러닝"],
+["GAN","Generative Adversarial Network","가짜를 만드는 생성자와 진위를 가리는 판별자가 적대적으로 경쟁 학습하는 생성 모델.","c318","딥러닝"],
+["전이학습","Transfer Learning","기존에 학습된 모델의 지식을 새로운 문제에 적용해 빠르고 효율적으로 학습.","c318","딥러닝"],
+["초매개변수","Hyperparameter","학습률·트리 깊이·k·규제 λ·은닉층 수 등 사람이 설정하는 값. 데이터로 학습되는 파라미터와 구분.","c408","딥러닝"],
+
+/* --- 평가·시각화 --- */
+["혼동행렬","Confusion Matrix","실제와 예측을 교차한 표. TP·FP·FN·TN으로 모든 분류 지표를 계산.","c401","평가"],
+["정확도","Accuracy","(TP+TN)/전체. 전체 중 맞힌 비율. 클래스 불균형에서는 오해의 소지가 큼.","c401","평가"],
+["정밀도","Precision","TP/(TP+FP). 양성이라 예측한 것 중 실제 양성 비율. 오탐(FP)을 줄이고 싶을 때 중요.","c401","평가"],
+["재현율","Recall / Sensitivity","TP/(TP+FN). 실제 양성 중 잡아낸 비율(민감도). 놓치면 안 될 때 중요(암 진단).","c401","평가"],
+["특이도","Specificity","TN/(TN+FP). 실제 음성을 음성으로 맞힌 비율.","c401","평가"],
+["F1 score","F1 score","2·정밀도·재현율/(정밀도+재현율). 정밀도와 재현율의 조화평균. 불균형에서 대표 지표.","c401","평가"],
+["ROC 곡선","Receiver Operating Characteristic","임계값을 바꾸며 x=FPR(1−특이도), y=TPR(재현율)을 그린 곡선. 좌상단에 가까울수록 좋음.","c402","평가"],
+["AUC","Area Under the Curve","ROC 곡선 아래 면적. 0.5는 무작위, 1.0은 완벽. 양성이 음성보다 높은 점수를 받을 확률.","c402","평가"],
+["PR 곡선","Precision-Recall Curve","x=재현율, y=정밀도. 양성이 희귀한 불균형 데이터에서 ROC보다 모델 차이를 잘 드러냄.","c402","평가"],
+["MSE","Mean Squared Error","오차 제곱의 평균. 큰 오차에 민감(제곱).","c403","평가"],
+["RMSE","Root Mean Squared Error","MSE의 제곱근. 원 데이터와 단위를 맞춰 가장 널리 사용.","c403","평가"],
+["MAE","Mean Absolute Error","오차 절대값의 평균. 제곱하지 않아 이상치에 상대적으로 덜 민감.","c403","평가"],
+["MAPE","Mean Absolute Percentage Error","백분율 오차의 평균. 스케일과 무관하나 실제값이 0이면 정의 불가.","c403","평가"],
+["AIC","Akaike Information Criterion","−2ln(L) + 2k. 적합도와 복잡도의 균형. 모형 간 상대 비교용이며 값이 낮을수록 좋음.","c404","평가"],
+["BIC","Bayesian Information Criterion","−2ln(L) + k·ln(n). 표본 크기가 크면 복잡도 페널티가 AIC보다 커져 더 간명한 모형을 선호.","c404","평가"],
+["실루엣 계수","Silhouette Coefficient","(b−a)/max(a,b). a=군집 내 응집도, b=최근접 타 군집과의 분리도. 1에 가까울수록 잘 군집됨.","c405","평가"],
+["Dunn 지수","Dunn Index","(군집 간 최소거리)/(군집 내 최대거리). 값이 클수록 좋은 군집.","c405","평가"],
+["교차검증","Cross Validation","데이터를 나눠 학습·검증을 여러 번 반복해 성능 추정의 분산을 줄이는 방법.","c406","평가"],
+["홀드아웃","Holdout","데이터를 train/validation/test로 한 번 분할하는 방법. 간단하나 분할 운에 따라 추정이 흔들림.","c406","평가"],
+["k-fold 교차검증","k-fold CV","데이터를 k등분해 각 부분을 한 번씩 검증셋으로 쓰고 나머지로 학습하는 것을 k번 반복 후 평균.","c406","평가"],
+["LOOCV","Leave-One-Out CV","k=n인 교차검증. 매번 1개만 검증. 편향은 낮으나 분산이 크고 계산량이 많음.","c406","평가"],
+["콜모고로프-스미르노프 검정","K-S test","관측 표본의 누적분포와 이론 분포의 최대 차이(D)로 적합도를 검정. 연속형에도 적용 가능.","c407","평가"],
+["샤피로-윌크 검정","Shapiro-Wilk","표본의 정규성을 검정하는 방법. 소·중 표본에 강함.","c407","평가"],
+["Q-Q plot","Quantile-Quantile plot","표본 분위수를 이론 분위수와 비교해 정규성을 시각적으로 점검하는 그래프.","c407","평가"],
+["잔차 진단","Residual Diagnostics","회귀 잔차의 정규성·등분산성·독립성을 점검하는 것.","c407","평가"],
+["그리드 서치","Grid Search","하이퍼파라미터 후보값의 모든 조합을 격자로 전수 탐색. 정확하나 조합 수가 지수적으로 증가.","c408","평가"],
+["랜덤 서치","Random Search","탐색 공간에서 무작위로 샘플링해 하이퍼파라미터를 탐색. 같은 예산이면 중요한 축을 더 잘 커버.","c408","평가"],
+["베이지안 최적화","Bayesian Optimization","이전 시도 결과로 대리모형을 만들어 유망한 지점을 우선 탐색. 적은 시행으로 좋은 값을 찾음.","c408","평가"],
+["파라미터","Parameter","회귀계수·신경망 가중치처럼 데이터로부터 학습되는 값.","c408","평가"],
+["데이터 드리프트","Data Drift","시간이 지나며 입력 데이터의 분포가 변해 모델 성능이 저하되는 현상. 모니터링으로 감지.","c410","평가"],
+["시간 시각화","","시점·기간에 따른 값의 변화. 막대·점그래프(이산), 꺾은선·계단·영역그래프·추세선(연속).","c412","평가"],
+["분포 시각화","","전체를 구성하는 비율(합 100%). 히스토그램·파이차트·도넛차트·트리맵·누적영역차트.","c412","평가"],
+["관계 시각화","","2개 이상 변수의 상관관계. 산점도·버블차트·히트맵.","c412","평가"],
+["비교 시각화","","여러 변수·대상 간 차이·유사성. 히트맵·체르노프 페이스·스타(레이더)차트·평행좌표계.","c412","평가"],
+["공간 시각화","","위치·지역에 따른 분포. 단계구분도(코로플레스)·카토그램·도트맵·버블맵.","c412","평가"],
+["단계구분도","Choropleth","행정구역 등을 값에 따라 색상 농도로 칠하는 공간 시각화.","c412","평가"],
+["카토그램","Cartogram","면적 자체를 값에 비례하도록 지도 형태를 왜곡하는 공간 시각화.","c412","평가"],
+["스타차트","Star / Radar Chart","여러 변수를 축으로 하는 다각형으로 대상을 비교하는 비교 시각화.","c412","평가"],
+["인포그래픽","Infographic","복잡한 수치·정보를 한눈에 파악하도록 시각적으로 표현한 것.","c412","평가"],
+["데이터-잉크 비율","Data-Ink Ratio","Tufte의 개념. 데이터를 나타내는 데 꼭 필요한 잉크의 비율. 높일수록 좋고 차트정크를 줄여야 함.","c413","평가"],
+["모니터링","Monitoring","운영 중인 모형의 성능이 유지되는지, 데이터·환경 변화가 없는지 지속 관찰하는 활동.","c410","평가"],
+["리모델링","Remodeling","환경·데이터 변화를 반영해 데이터 품질 점검·알고리즘 개선·매개변수 재최적화를 수행하는 것.","c410","평가"],
+];
+</script>
+<script>
 /* ===================== 엔진 ===================== */
 (function(){
 "use strict";
@@ -2397,6 +2796,7 @@ const IC = {
   book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5z"/></svg>',
   target:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
   redo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
 };
 
 /* ---- 링(SVG 원형 진행) ---- */
@@ -2439,6 +2839,7 @@ function setTab(name){
   if(name==="home") renderHome();
   if(name==="learn") renderLearn();
   if(name==="quiz") renderQuizHub();
+  if(name==="terms") renderTerms();
 }
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 
@@ -2923,6 +3324,141 @@ function finishRun(){
   v.appendChild(r);
   run=null;
   window.scrollTo(0,0);
+}
+
+/* ===================== 탭4 · 용어 검색 ===================== */
+const TERM_CATS = ["전체","기획","전처리","탐색","추론","모델","딥러닝","평가"];
+// 통합 인덱스: 용어 사전 + 개념 카드
+const TERM_INDEX = [
+  ...GLOSSARY.map(g=>({kind:"term", name:g[0], eng:g[1]||"", def:g[2], lk:g[3]||"", cat:g[4],
+    hay:(g[0]+" "+(g[1]||"")+" "+g[2]).toLowerCase().replace(/\s+/g,"")})),
+  ...CONCEPTS.map(c=>({kind:"concept", name:c.t, eng:(c.tag||[]).join(" "), def:conceptSummary(c), lk:c.id,
+    cat:SUBJ_BY_ID[c.s].t.replace("빅데이터 ",""),
+    hay:(c.t+" "+(c.tag||[]).join(" ")+" "+conceptSummary(c)).toLowerCase().replace(/\s+/g,"")})),
+];
+function conceptSummary(c){
+  const p=(c.b||[]).find(b=>b[0]==="p");
+  if(p) return String(p[1]).replace(/\*\*/g,"").replace(/`/g,"");
+  const h=(c.b||[]).find(b=>b[0]==="ul");
+  if(h) return String(h[1][0]).replace(/\*\*/g,"").replace(/`/g,"");
+  return "개념 카드에서 자세히 확인하세요.";
+}
+let termQ = "", termCat = "전체", termOpen = {};
+
+function renderTerms(){
+  const v=$("#view-terms"); v.innerHTML="";
+  const wrap=el("div","term-wrap");
+
+  const head=el("div","term-head");
+  head.innerHTML=`<h2>용어 검색</h2><p>용어·모델·기법 ${GLOSSARY.length}개 + 개념 카드 ${TOTAL_C}개에서 찾기</p>`;
+  wrap.appendChild(head);
+
+  const sb=el("div","term-searchbar");
+  const box=el("div","term-input-box"+(termQ?" has":""));
+  box.innerHTML=`${IC.search}<input type="search" inputmode="search" placeholder="예: 정규화, ROC, 과적합, 랜덤 포레스트…" value="${esc(termQ)}"><button class="clr" aria-label="지우기">${IC.x}</button>`;
+  const input=box.querySelector("input");
+  input.addEventListener("input",()=>{ termQ=input.value; box.classList.toggle("has",!!termQ); renderResults(); });
+  box.querySelector(".clr").addEventListener("click",()=>{ termQ=""; input.value=""; box.classList.remove("has"); input.focus(); renderResults(); });
+  sb.appendChild(box);
+
+  const cats=el("div","term-cats");
+  TERM_CATS.forEach(ct=>{
+    const c=el("button","term-cat"+(termCat===ct?" on":""), esc(ct));
+    c.addEventListener("click",()=>{ termCat=ct; renderTerms(); });
+    cats.appendChild(c);
+  });
+  sb.appendChild(cats);
+  wrap.appendChild(sb);
+
+  const results=el("div"); results.id="termResults";
+  wrap.appendChild(results);
+  v.appendChild(wrap);
+
+  renderResults();
+  if(termQ) setTimeout(()=>input.focus(),30);
+}
+
+function normalize(s){ return String(s).toLowerCase().replace(/\s+/g,""); }
+
+function renderResults(){
+  const box=$("#termResults"); if(!box) return;
+  box.innerHTML="";
+  const q=normalize(termQ);
+  let list=TERM_INDEX.slice();
+
+  // 카테고리 필터 (검색어 없을 때만 엄격 적용, 검색 시엔 전체에서)
+  if(termCat!=="전체" && !q){
+    list=list.filter(x=>x.cat===termCat || (x.kind==="term" && x.cat===termCat));
+  }
+  if(q){
+    list=list.filter(x=>x.hay.includes(q));
+    // 정렬: 이름 정확일치 > 이름 시작 > 이름 포함 > 정의 포함, 용어 우선
+    const score=x=>{
+      const n=normalize(x.name), e=normalize(x.eng);
+      let s=0;
+      if(n===q||e===q) s=100;
+      else if(n.startsWith(q)||e.startsWith(q)) s=70;
+      else if(n.includes(q)||e.includes(q)) s=45;
+      else s=15;
+      if(x.kind==="term") s+=5;
+      return s;
+    };
+    list.sort((a,b)=>score(b)-score(a));
+  } else {
+    // 검색어 없음 → 용어 사전만, 가나다순
+    list=list.filter(x=>x.kind==="term").sort((a,b)=>a.name.localeCompare(b.name,"ko"));
+  }
+
+  box.appendChild(el("div","term-count",
+    q ? `"${esc(termQ)}" 검색 결과 ${list.length}개`
+      : (termCat==="전체" ? `카테고리를 고르거나 위에서 검색하세요 · 전체 용어 ${list.length}개` : `${esc(termCat)} · ${list.length}개`)));
+
+  if(!list.length){
+    box.appendChild(el("div","empty", `${IC.search}<p>검색 결과가 없어요.<br>다른 표현으로 검색해 보세요.</p>`));
+    return;
+  }
+
+  const ul=el("div","term-list");
+  const cap = q ? 60 : (termCat==="전체" ? 40 : 999);
+  list.slice(0,cap).forEach((x,idx)=>{
+    const key=x.kind+":"+x.lk+":"+x.name;
+    const item=el("div","term-item"+(termOpen[key]?" open":""));
+    const top=el("button","term-top");
+    const catLabel = x.kind==="concept" ? "개념" : x.cat;
+    top.innerHTML=`<span class="tt-name">${hl(x.name)}</span>
+      <span class="tt-eng">${esc(x.eng)}</span>
+      <span class="tt-cat ${x.kind==="concept"?"concept":""}">${esc(catLabel)}</span>`;
+    top.addEventListener("click",()=>{
+      termOpen[key]=!termOpen[key];
+      item.classList.toggle("open");
+    });
+    item.appendChild(top);
+
+    const body=el("div","term-body");
+    body.innerHTML=`<p>${hl(x.def)}</p>`;
+    if(x.lk){
+      const more=el("button","term-more", `${IC.book} ${x.kind==="concept"?"개념 카드 열기":"관련 개념 자세히 보기"}`);
+      more.addEventListener("click",(e)=>{ e.stopPropagation(); openConcept(x.lk); });
+      body.appendChild(more);
+    }
+    item.appendChild(body);
+    ul.appendChild(item);
+  });
+  box.appendChild(ul);
+
+  if(list.length>cap){
+    box.appendChild(el("div","term-count", `그 외 ${list.length-cap}개 — 검색어를 더 구체적으로 입력하세요`));
+  }
+}
+
+function hl(text){
+  const safe=esc(text);
+  const q=String(termQ).trim();
+  if(q.length<1) return safe;
+  try{
+    const re=new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
+    return safe.replace(re, "<mark>$1</mark>");
+  }catch(e){ return safe; }
 }
 
 /* ===================== 테마 / 리셋 ===================== */
